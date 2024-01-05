@@ -1,10 +1,11 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+
 import {
   getAuth, // for get rules of auth
   signInWithRedirect, // sign in methode
   signInWithPopup, // sign in methode
-  GoogleAuthProvider, // for initialize provider get prompt select_account
+  GoogleAuthProvider, // for select login provider like facebook, github, google, an so on. initialize provider get prompt select_account
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 
 import {
@@ -13,8 +14,6 @@ import {
   getDoc, // for get the document
   setDoc, // for do something with document
 } from "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -30,24 +29,29 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 // Auth
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
 
 // FireStore
 export const db = getFirestore(); //get data from firebase console
 // Give colection to user when authification are vcrify
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = {}
+) => {
+  if (!userAuth) return;
   // take the colection of "users" from user by uid
   const userDocRef = doc(db, "users", userAuth.uid);
-  console.log(userDocRef);
   const userSnapshoot = await getDoc(userDocRef);
-  console.log(userSnapshoot);
-  console.log(userSnapshoot.exists()); //check the document exist or not, if not, make new doc with setDoc() method
 
   //   if user data does not exist
   if (!userSnapshoot.exists()) {
@@ -59,6 +63,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        ...additionalInformation,
       });
     } catch (error) {
       console.log("Error creating user", error.message);
@@ -66,5 +71,9 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   }
   return userDocRef;
   //   if user data exist
-  //   return userDocRef
+};
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  return await createUserWithEmailAndPassword(auth, email, password);
 };
