@@ -2,6 +2,8 @@ import { useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
+  signInWithGooglePopup,
+  signInAuthWithEmailAndPassword,
 } from "./../../utils/Firebase/Firebase.utils";
 import FormInput from "../FormInput/FormInput.component";
 import "./SigninForm.styles.scss";
@@ -9,17 +11,27 @@ import "./../Button/Button.component";
 import Button from "./../Button/Button.component";
 
 const SignInForm = () => {
-  const [userSignUp, setUserSignUp] = useState({
+  const [userSignUp, setUserSignIn] = useState({
     email: "",
     password: "",
   });
+
+  const logPopupGoogleUser = async () => {
+    try {
+      const response = await signInWithGooglePopup();
+      const { user } = response;
+      const userDocRef = await createUserDocumentFromAuth(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const { email, password } = userSignUp;
 
   const handleOnChange = (event) => {
     const { value, name } = event.target;
 
-    setUserSignUp((prevValue) => {
+    setUserSignIn((prevValue) => {
       return {
         ...prevValue,
         [name]: value,
@@ -30,13 +42,21 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      setUserSignUp({
-        displayName: "",
+      const response = await signInAuthWithEmailAndPassword(email, password);
+      console.log(response);
+      setUserSignIn({
         email: "",
         password: "",
-        confirmPassword: "",
       });
-    } catch (error) {}
+    } catch (error) {
+      switch (error.code) {
+        case "auth/invalid-credential":
+          alert("Invalid Account");
+          break;
+        default:
+          console.log(error);
+      }
+    }
   };
   return (
     <div className="sign-up-container">
@@ -63,13 +83,18 @@ const SignInForm = () => {
             required: true,
           }}
         />
-
-        <Button buttonType="google" type="submit">
-          Sign In
-        </Button>
-        <Button buttonType="google" type="submit">
-          Sign In
-        </Button>
+        <div className="buttons-container">
+          <Button buttonType="reverted" type="submit">
+            Sign In
+          </Button>
+          <Button
+            type="button"
+            onClick={logPopupGoogleUser}
+            buttonType="google"
+          >
+            Google Sign In
+          </Button>
+        </div>
       </form>
     </div>
   );

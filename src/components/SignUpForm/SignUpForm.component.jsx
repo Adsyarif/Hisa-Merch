@@ -89,7 +89,7 @@ const SignUpForm = () => {
         <FormInput
           title="Confirm Password"
           inputOptions={{
-            name: "confirmPassowd",
+            name: "confirmPassword",
             onChange: handleOnChange,
             type: "password",
             value: confirmPassword,
@@ -97,7 +97,7 @@ const SignUpForm = () => {
           }}
         />
 
-        <Button buttonType="google" type="submit">
+        <Button buttonType="reverted" type="submit">
           Sign Up
         </Button>
       </form>
