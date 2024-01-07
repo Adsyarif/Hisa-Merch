@@ -27,44 +27,6 @@ const SignUpForm = () => {
         [name]: value,
       };
     });
-
-    // if (name === "displayName") {
-    //   setUserSignUp((preValue) => {
-    //     return {
-    //       dislayName: value,
-    //       email: preValue.email,
-    //       password: preValue.password,
-    //       confirmPassword: preValue.confirmPassword,
-    //     };
-    //   });
-    // } else if (name === "email") {
-    //   setUserSignUp((preValue) => {
-    //     return {
-    //       dislayName: preValue.dislayName,
-    //       email: value,
-    //       password: preValue.password,
-    //       confirmPassword: preValue.confirmPassword,
-    //     };
-    //   });
-    // } else if (name === "password") {
-    //   setUserSignUp((preValue) => {
-    //     return {
-    //       dislayName: preValue.dislayName,
-    //       email: preValue.email,
-    //       password: value,
-    //       confirmPassword: preValue.confirmPassword,
-    //     };
-    //   });
-    // } else if (name === "confirmPassword") {
-    //   setUserSignUp((preValue) => {
-    //     return {
-    //       dislayName: preValue.dislayName,
-    //       email: preValue.email,
-    //       password: preValue.password,
-    //       confirmPassword: value,
-    //     };
-    //   });
-    // }
   };
   const handleOnSubmit = async (event) => {
     event.preventDefault();
