@@ -1,9 +1,11 @@
 import { Outlet, Link } from "react-router-dom";
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { ReactComponent as HisaLogo } from "./../../assets/hisa-logo.svg";
 import "./navigation.styles.scss";
+import { UserContext } from "../../contexts";
 
 const Navigation = () => {
+  const { currentUser } = useContext(UserContext);
   return (
     <Fragment>
       <div className="navigation">
