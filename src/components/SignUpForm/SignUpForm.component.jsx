@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -38,6 +38,7 @@ const SignUpForm = () => {
         password
       );
       const { user } = response;
+
       await createUserDocumentFromAuth(user, { displayName });
       setUserSignUp({
         displayName: "",

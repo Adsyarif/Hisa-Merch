@@ -7,6 +7,8 @@ import {
   GoogleAuthProvider, // for select login provider like facebook, github, google, an so on. initialize provider get prompt select_account
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import {
@@ -82,3 +84,8 @@ export const signInAuthWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+export const signOutUser = async () => await signOut(auth);
+
+export const onAuthStateChangedListerner = (callback) =>
+  onAuthStateChanged(auth, callback);
