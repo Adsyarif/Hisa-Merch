@@ -8,8 +8,10 @@ import FormInput from "../FormInput/FormInput.component";
 import "./SigninForm.styles.scss";
 import "./../Button/Button.component";
 import Button from "./../Button/Button.component";
+import { UserContext } from "../../contexts";
 
 const SignInForm = () => {
+  const { setCurrentUser } = useContext(UserContext);
   const [userSignUp, setUserSignIn] = useState({
     email: "",
     password: "",
@@ -17,7 +19,9 @@ const SignInForm = () => {
 
   const logPopupGoogleUser = async () => {
     try {
-      await signInWithGooglePopup();
+      const response = await signInWithGooglePopup();
+      const { user } = response;
+      setCurrentUser(user);
     } catch (error) {
       console.log(error);
     }
@@ -46,6 +50,7 @@ const SignInForm = () => {
         email: "",
         password: "",
       });
+      setCurrentUser(user);
     } catch (error) {
       switch (error.code) {
         case "auth/invalid-credential":
