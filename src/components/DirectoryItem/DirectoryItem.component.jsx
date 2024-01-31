@@ -1,10 +1,6 @@
 import { useContext, useNavigate } from "react";
 import { UserContext } from "../../contexts";
-import {
-  BackgroundImage,
-  Body,
-  DirectoryItemContainer,
-} from "./DirectoryItem.style";
+import "./DirectoryItem.style.scss";
 import { Link } from "react-router-dom";
 
 const DirectoryItem = ({ category }) => {
@@ -12,13 +8,18 @@ const DirectoryItem = ({ category }) => {
   const { currentUser } = useContext(UserContext);
 
   return (
-    <DirectoryItemContainer>
-      <BackgroundImage imageUrl={imageUrl} />
-      <Body>
+    <div className="directory-item-container">
+      <div
+        className="background-image"
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+        }}
+      />
+      <div className="body">
         <h2>{title}</h2>
         {currentUser ? <p>Shop Now</p> : <p>Login to Shop</p>}
-      </Body>
-    </DirectoryItemContainer>
+      </div>
+    </div>
   );
 };
 export default DirectoryItem;
