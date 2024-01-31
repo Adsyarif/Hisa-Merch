@@ -16,6 +16,10 @@ import {
   doc, // for get document instance
   getDoc, // for get the document
   setDoc, // for do something with document
+  collection,
+  writeBatch,
+  query,
+  getDocs,
 } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -46,6 +50,33 @@ export const signInWithGoogleRedirect = () =>
 
 // FireStore
 export const db = getFirestore(); //get data from firebase console
+
+export const addCollectionAndDocuments = async (collectionKey, objectToAdd) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+
+  objectToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+
+  await batch.commit();
+  console.log("done");
+};
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, "categories");
+  const q = query(collectionRef);
+
+  const querySnapShot = await getDocs(q);
+  const categoryMap = querySnapShot.docs.reduce((accumulator, docSnapsot) => {
+    const { title, items } = docSnapsot.data();
+    accumulator[title.toLowerCase()] = items;
+    return accumulator;
+  }, {});
+  return categoryMap;
+};
+
 // Give colection to user when authification are vcrify
 export const createUserDocumentFromAuth = async (
   userAuth,

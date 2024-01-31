@@ -1,7 +1,12 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Fragment, useContext } from "react";
 import { ReactComponent as HisaLogo } from "./../../assets/hisa-logo.svg";
-import "./navigation.styles.scss";
+import {
+  NavigationContainer,
+  LogoContainer,
+  NavLinks,
+  NavLink,
+} from "./navigation.styles";
 import { UserContext, CartContext } from "../../contexts";
 import { signOutUser } from "../../utils/Firebase/Firebase.utils";
 import { CartIcon, CardDropDown } from "../../components";
@@ -12,27 +17,24 @@ const Navigation = () => {
 
   return (
     <Fragment>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
-          <HisaLogo className="logo" />
-        </Link>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
-            SHOP
-          </Link>
+      <NavigationContainer>
+        <LogoContainer to="/">
+          <HisaLogo />
+        </LogoContainer>
+        <NavLinks>
+          <NavLink to="/shop">SHOP</NavLink>
+
           {currentUser ? (
-            <span className="nav-link" onClick={signOutUser}>
+            <NavLink as="span" onClick={signOutUser}>
               SIGN OUT
-            </span>
+            </NavLink>
           ) : (
-            <Link className="nav-link" to="/auth">
-              SIGN IN
-            </Link>
+            <NavLink to="/auth">SIGN IN</NavLink>
           )}
-          <CartIcon />
-        </div>
-        {isCartOpen && <CardDropDown />}
-      </div>
+          {currentUser && <CartIcon />}
+        </NavLinks>
+        {currentUser && isCartOpen && <CardDropDown />}
+      </NavigationContainer>
       <Outlet />
     </Fragment>
   );

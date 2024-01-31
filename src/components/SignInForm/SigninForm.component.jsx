@@ -6,9 +6,8 @@ import {
 } from "./../../utils/Firebase/Firebase.utils";
 import FormInput from "../FormInput/FormInput.component";
 import "./SigninForm.styles.scss";
-import "./../Button/Button.component";
-import Button from "./../Button/Button.component";
 import { UserContext } from "../../contexts";
+import { Button, BUTTON_TYPE_CLASSES } from "../index";
 
 const SignInForm = () => {
   const { setCurrentUser } = useContext(UserContext);
@@ -87,15 +86,13 @@ const SignInForm = () => {
           }}
         />
         <div className="buttons-container">
-          <Button buttonType="reverted" type="submit">
-            Sign In
-          </Button>
+          <Button type="submit">Sign In</Button>
           <Button
+            buttonType={BUTTON_TYPE_CLASSES.google}
             type="button"
             onClick={logPopupGoogleUser}
-            buttonType="google"
           >
-            Google Sign In
+            Sign In Google
           </Button>
         </div>
       </form>

@@ -5,8 +5,7 @@ import {
 } from "./../../utils/Firebase/Firebase.utils";
 import FormInput from "../FormInput/FormInput.component";
 import "./SignupForm.styles.scss";
-import "./../Button/Button.component";
-import Button from "./../Button/Button.component";
+import { Button, BUTTON_TYPE_CLASSES } from "../index";
 
 const SignUpForm = () => {
   const [userSignUp, setUserSignUp] = useState({
@@ -98,9 +97,7 @@ const SignUpForm = () => {
           }}
         />
 
-        <Button buttonType="reverted" type="submit">
-          Sign Up
-        </Button>
+        <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
