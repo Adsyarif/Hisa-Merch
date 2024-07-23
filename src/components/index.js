@@ -9,3 +9,4 @@ export { BUTTON_TYPE_CLASSES } from "./Button/Button.component.jsx";
 export { default as CartItem } from "./CartItem/CartItem.component.jsx";
 export { default as CheckOutItem } from "./CheckOutItem/CheckOutItem.component.jsx";
 export { default as CategoryPreview } from "./CategoryPreview/CategoryPreview.component.jsx";
+export { default as Payment } from "./Payment/Payment.component.jsx";

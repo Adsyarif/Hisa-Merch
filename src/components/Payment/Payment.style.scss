@@ -1,0 +1,41 @@
+.form-payment-container {
+  display: flex;
+  width: 100%;
+  padding: 0px, 25px;
+  gap: 12px;
+}
+
+.card-number {
+  width: 50%; /* Mengambil dua kali ruang dari .card-number dan .card-cvc */
+  border-style: none;
+  height: 30px;
+}
+
+.card-year,
+.card-cvc {
+  width: 25%;
+  border-style: none;
+  height: 30px;
+}
+
+.container-button-payement {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container {
+  padding-top: 20px;
+  display: flex;
+  // justify-content: flex-end;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
