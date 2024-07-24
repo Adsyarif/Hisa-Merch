@@ -96,19 +96,20 @@ const Payment = () => {
           </Button>
         </div>
         <div className="button-container">
-          <Link
-            to={
+          <a
+            target="_blank"
+            href={
               cartTotal != 0
                 ? `https://api.whatsapp.com/send/?phone=${6285603770067}&text=Halo, I want to buy this items ${product(
                     cartItems
-                  )} with total ammount $${cartTotal}&type=phone_number&app_absent=0`
+                  )} with total ammount Rp. ${cartTotal}K&type=phone_number&app_absent=0`
                 : `https://api.whatsapp.com/send/?phone=${6285603770067}&text=Halo, I want to know more about promoted item in Hisa Store&type=phone_number&app_absent=0`
             }
           >
             <Button buttonType={BUTTON_TYPE_CLASSES.google}>
               Contact to Admin
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </div>
