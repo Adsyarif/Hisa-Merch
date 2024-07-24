@@ -99,10 +99,12 @@ const Payment = () => {
           <a
             target="_blank"
             href={
-              cartTotal != 0
+              cartTotal && cardInfo.cardNumber != 0
                 ? `https://api.whatsapp.com/send/?phone=${6285603770067}&text=Halo, I want to buy this items ${product(
                     cartItems
-                  )} with total ammount Rp. ${cartTotal}K&type=phone_number&app_absent=0`
+                  )} with total ammount Rp. ${cartTotal}K. I have paid using ${
+                    cardInfo.cardNumber
+                  }&type=phone_number&app_absent=0`
                 : `https://api.whatsapp.com/send/?phone=${6285603770067}&text=Halo, I want to know more about promoted item in Hisa Store&type=phone_number&app_absent=0`
             }
           >
